@@ -27,7 +27,8 @@ spec:
     spec:
       containers:
         - name: container-stripe-plt-25-03-2026
-          image: plt/app-rocket-plt-25-03-2026:latest
+          image: plt/stripe-app-plt-25-03-2026:v1
+          imagePullPolicy: Never
           ports:
             - containerPort: 4242
           envFrom:
