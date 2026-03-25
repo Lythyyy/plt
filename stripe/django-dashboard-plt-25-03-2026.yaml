@@ -2,8 +2,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: django-app-configmap
-  namespace: dev-plt-25-03-2026
+  name: django-dashboard-configmap-plt-25-03-2026
+  namespace: django-dashboard-plt-25-03-2026
 data:
   DEMO_MODE: "True"
   DEBUG: "True"
@@ -12,45 +12,45 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: django-deployment
-  namespace: dev-plt-25-03-2026
+  name: django-dashboard-deployment-plt-25-03-2026
+  namespace: django-dashboard-plt-25-03-2026
   labels:
-    app: django
+    app: django-dashboard
     env: dev
     tier: frontend
 spec:
   selector:
     matchLabels:
-      app: django
+      app: django-dashboard
   replicas: 1
   template:
     metadata:
       labels:
-        app: django
+        app: django-dashboard
         env: dev
         tier: frontend
     spec:
       containers:
-        - name: django-random
-          image: soso725/rocketecommerce:beta
+        - name: container-django-dashboard-plt-25-03-2026
+          image: plt/app-django-plt-25-03-2026:v1
+          imagePullPolicy: Never
           ports:
             - containerPort: 5005
           envFrom:
             - configMapRef:
-                name: django-app-configmap
+                name: django-dashboard-configmap-plt-25-03-2026
             - secretRef:
                 name: stripe-secret-plt-25-03-2026
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: django-service
-  namespace: dev-plt-25-03-2026
+  name: django-dashboard-service-plt-25-03-2026
+  namespace: django-dashboard-plt-25-03-2026
 spec:
   type: LoadBalancer
   selector:
-    app: django
+    app: django-dashboard
   ports:
     - port: 5005
       targetPort: 5005
-      name: django-np
