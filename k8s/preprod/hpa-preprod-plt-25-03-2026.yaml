@@ -1,0 +1,110 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpa-django-dashboard-plt-25-03-2026
+  namespace: preprod-plt-25-03-2026
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: django-dashboard-deployment-plt-25-03-2026
+  minReplicas: 3
+  maxReplicas: 10
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 5
+      - type: Pods
+        value: 4
+        periodSeconds: 5
+      selectPolicy: Max
+    scaleDown:
+      stabilizationWindowSeconds: 10
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpa-django-plt-25-03-2026
+  namespace: preprod-plt-25-03-2026
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: django-deployment
+  minReplicas: 3
+  maxReplicas: 10
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 5
+      - type: Pods
+        value: 4
+        periodSeconds: 5
+      selectPolicy: Max
+    scaleDown:
+      stabilizationWindowSeconds: 10
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpa-stripe-plt-25-03-2026
+  namespace: preprod-plt-25-03-2026
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: stripe-deployment-plt-25-03-2026
+  minReplicas: 3
+  maxReplicas: 10
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 5
+      - type: Pods
+        value: 4
+        periodSeconds: 5
+      selectPolicy: Max
+    scaleDown:
+      stabilizationWindowSeconds: 10
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50

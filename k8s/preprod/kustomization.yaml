@@ -3,10 +3,10 @@ kind: Kustomization
 namespace: preprod-plt-25-03-2026
 resources:
   - ../base
-  - ../secrets/secret-django-plt-25-03-2026.yaml
-  - ../secrets/secret-stripe-plt-25-03-2026.yaml
-  - ../secrets/secret-dashboard-plt-25-03-2026.yaml
-  - hpa-plt-25-03-2026.yaml
+  - ./secrets/secret-django-plt-25-03-2026.yaml
+  - ./secrets/secret-stripe-plt-25-03-2026.yaml
+  - ./secrets/secret-dashboard-plt-25-03-2026.yaml
+  - hpa-preprod-plt-25-03-2026.yaml
 patches:
   - patch: |-
       - op: replace
