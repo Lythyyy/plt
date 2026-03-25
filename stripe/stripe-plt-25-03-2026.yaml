@@ -1,0 +1,51 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: stripe-configmap-plt-25-03-2026
+  namespace: dev-plt-25-03-2026
+data:
+  DEMO_MODE: "True"
+  DEBUG: "True"
+  SERVER_ADDRESS: "http://localhost:4242/"
+  FLASK_APP: "server.py"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stripe-deployment-plt-25-03-2026
+  namespace: dev-plt-25-03-2026
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: stripe-app-plt-25-03-2026
+  template:
+    metadata:
+      labels:
+        app: stripe-app-plt-25-03-2026
+    spec:
+      containers:
+        - name: container-stripe-plt-25-03-2026
+          image: plt/app-rocket-plt-25-03-2026:latest
+          ports:
+            - containerPort: 4242
+          envFrom:
+            - configMapRef:
+                name: stripe-configmap-plt-25-03-2026
+            - secretRef:
+                name: stripe-secret-plt-25-03-2026
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stripe-service-plt-25-03-2026
+  namespace: dev-plt-25-03-2026
+spec:
+  type: LoadBalancer 
+  selector:
+    app: stripe-app-plt-25-03-2026
+  ports:
+    - port: 80
+      targetPort: 4242
