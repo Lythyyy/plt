@@ -1,0 +1,17 @@
+# k8s/prod/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: prod-plt-25-03-2026
+resources:
+  - ../base
+  - ../secrets/secret-django-plt-25-03-2026.yaml
+  - ../secrets/secret-stripe-plt-25-03-2026.yaml
+  - ../secrets/secret-dashboard-plt-25-03-2026.yaml
+  - hpa-plt-25-03-2026.yaml
+patches:
+  - patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 3
+    target:
+      kind: Deployment

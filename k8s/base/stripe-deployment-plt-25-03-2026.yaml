@@ -36,6 +36,13 @@ spec:
                 name: stripe-configmap-plt-25-03-2026
             - secretRef:
                 name: stripe-secret-plt-25-03-2026
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
 
 ---
 apiVersion: v1
