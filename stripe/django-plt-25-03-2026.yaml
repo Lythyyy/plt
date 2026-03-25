@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
         - name: django-random
-          image: soso725/rocketecommerce:beta
+          image: plt/app-rocket-plt-25-03-2026:v1
           ports:
             - containerPort: 5005
           envFrom:
