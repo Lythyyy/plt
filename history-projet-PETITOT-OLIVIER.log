@@ -1,0 +1,495 @@
+    1  sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+    2  Types: deb
+    3  URIs: https://download.docker.com/linux/ubuntu
+    4  Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+    5  Components: stable
+    6  Signed-By: /etc/apt/keyrings/docker.asc
+    7  EOF
+    8  sudo su
+    9  minikube start --listen-address=0.0.0.0 --memory=max --cpus=max --kubernetes-version=v1.35.0
+   10  minikube start --listen-address=0.0.0.0 --memory=max --cpus=max --kubernetes-version=v1.35.1
+   11  sudo usermod -aG docker $USER && newgrp docker
+   12  minikube start --listen-address=0.0.0.0 --memory=max --cpus=max --kubernetes-version=v1.35.0
+   13  apt-get install bash-completion
+   14  sudo apt-get install bash-completion
+   15  source /etc/bash_completion
+   16  source <(minikube completion bash)
+   17  curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+   18  curl -LO https://dl.k8s.io/release/v1.35.0/bin/linux/amd64/kubectl
+   19  echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+   20  sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+   21  kubectl version --client
+   22  kubectl run nginx --image=nginx
+   23  kubectl get pod
+   24  kubectl describe pod nginx
+   25  k get pod -o wide
+   26  kubectl get pod -o wide
+   27  kubectl create deployment nginx-deployment --image=nginx
+   28  kubectl get deployment
+   29  kubectl get all
+   30  kubectl expose deployment nginx-deployment --type=NodePort --port=80
+   31  kubectl describe service nginx-deployment
+   32  minikube ip
+   33  kubectl version --client
+   34  minikube service nginx-deployment
+   35  curl http://192.168.49.2:32715
+   36  kubectl port-forward --address 0.0.0.0 services/nginx-deployment 5000:80
+   37  curl http://192.168.49.2:32715
+   38  minikube service nginx-deployment
+   39  kubectl port-forward service/nginx-deployment nodeport:32715
+   40  kubectl port-forward service/nginx-deployment nodeport:5000
+   41  kubectl port-forward service/nginx-deployment nodeport:80
+   42  kubectl port-forward --address 0.0.0.0 services/nginx-deployment 5000:80
+   43  minikube status
+   44  apt-get update
+   45  sudo apt-get update
+   46  kubectl get all
+   47  k get pod
+   48  kubectl get pod -o wide
+   49  minikube ssh
+   50  if command -v minikube &>/dev/null; then   eval "$(minikube completion bash)"; fi
+   51  source /etc/bash_completion
+   52  source <(minikube completion bash)
+   53  alias kubectl="minikube kubectl --"
+   54  alias k="minikube kubectl --"
+   55  alias k="kubectl"
+   56  complete -F __start_kubectl k
+   57  source <(kubectl completion bash)
+   58  nano ~/.bashrc
+   59  source ~/.bashrc
+   60  k get all
+   61  docker ps
+   62  minikube ssh
+   63  k delete pod
+   64  k delete pods
+   65  k delete 
+   66  k delete pods
+   67  k create deployment caddy-deployment --image=caddy
+   68  k get deployments.apps
+   69  k get deployments.apps -o wide
+   70  k get deployments -l app=caddy-deployment
+   71  k get pod
+   72  k get all
+   73  k describe service nginx-deployment
+   74  k expose deployment caddy-deployment --type NodePort --port 80
+   75  k describe service nginx-deployment
+   76  k describe service caddy-deployment
+   77  k get all
+   78  k get pod -o wide
+   79  curl -I 10.111.240.222
+   80  minikube ssh
+   81  minikube ip
+   82  ip -c -4 a
+   83  ip a
+   84  k get svc
+   85  k port-forward --address 0.0.0.0 services/caddy-deployment 9000:80
+   86  ip a
+   87  ip -c -4 a
+   88  ip a
+   89  systemctl status ssh
+   90  ip a
+   91  exit
+   92  k port-forward --address 0.0.0.0 services/caddy-deployment 9000:80
+   93  docker ps
+   94  k get svc
+   95  curl -I 10.111.240.222
+   96  k port-forward --address 0.0.0.0 services/caddy-deployment 9000:80
+   97  docker ps
+   98  minikube ssh
+   99  k get svc
+  100  ip a
+  101  k get svc
+  102  k get all
+  103  minikube ip
+  104  kubectl create deployment hello-minikube --image=kicbase/echo-server:1.0
+  105  kubectl expose deployment hello-minikube --type=NodePort --port=8080
+  106  kubectl get services hello-minikube
+  107  minikube service hello-minikube
+  108  kubectl port-forward service/hello-minikube 7080:8080
+  109  k get all
+  110  curl -I 192.168.49.2:32509
+  111  minikube addons enable ingress
+  112  kubectl apply -f https://storage.googleapis.com/minikube-site-examples/ingress-example.yaml
+  113  k get all
+  114  minikube tunnel
+  115  kubectl port-forward --address 0.0.0.0 svc/django-adminlte-svc 8081:80
+  116  ip a
+  117  minikube
+  118  minikube start
+  119  minikube start --listen-address=0.0.0.0 --memory=max --cpus=max --kubernetes-version=v1.35.0
+  120  minikube status
+  121  eval $(minikube docker-env)
+  122  docker ps
+  123  docker images
+  124  k
+  125  ls
+  126  cd dockers
+  127  ls
+  128  nano deployment.yaml
+  129  k apply -f deployment.yaml
+  130  k describe deployment nginx-deployment
+  131  kubectl get pods -l app=nginx
+  132  k apply -f deployment-update.yaml
+  133  k get pods -l app=nginx
+  134  k apply -f deployment-scale.yaml
+  135  k get pods -l app=nginx
+  136  k delete deployments.apps nginx-deployment
+  137  k get pods -l app=nginx
+  138  k version
+  139  k apply -f redis-leader-deployment.yaml
+  140  k get pods
+  141  k delete deployments.apps ghost-deployment
+  142  k get pods
+  143  k apply -f redis-leader-service.yaml
+  144  k get service
+  145  k delete service ghost-service
+  146  k get service
+  147  k apply -f redis-follower-deployment.yaml
+  148  k get pods
+  149  k apply -f redis-follower-service.yaml
+  150  k get service
+  151  k apply -f frontend-deployment.yaml
+  152  kubectl get pods -l app=guestbook -l tier=frontend
+  153  k apply -f frontend-service.yaml
+  154  k get service
+  155  kubectl port-forward svc/frontend 8080:80
+  156  kubectl port-forward --namespace kube-system service/registry 5000:80
+  157  sudo apt upgrade
+  158  minikube start
+  159  minikube start --listen-address=0.0.0.0 --memory=max --cpus=max --kubernetes-version=v1.35.1
+  160  k get pods
+  161  k get all
+  162  k apply -f new-apps.yaml
+  163  k get all
+  164  k get all -n preprod
+  165  k apply -f new-apps.yaml
+  166  k get all -n preprod
+  167  minikube tunnel
+  168  k get all -n preprod
+  169  k po
+  170  k port-forward --address 0.0.0.0 services/flaskapp-deployment -n preprod 5005:5005
+  171  k delete
+  172  k delete pods
+  173  k get all
+  174  k get all -n preprod
+  175  k delete deployments.apps/flaskapp-deployment
+  176  k delete -n preprod deployments.apps/flaskapp-deployment
+  177  k delete -n preprod service/flaskapp-deployment
+  178  k get all
+  179  k get all -n preprod
+  180  k delete -n preprod namespaces preprod
+  181  docker run -it --network host ekzhang/bore local 4242 --to bore.pub
+  182  kubectl port-forward --namespace kube-system service/registry 5000:80
+  183  kubectl port-forward -n preprod svc/stripe-svc 4242:80
+  184  k get pods
+  185  minikube start --listen-address=0.0.0.0 --memory=max --cpus=max --kubernetes-version=v1.35.1
+  186  k get pods
+  187  k get all -n prod-caddy
+  188  k delete deployments.apps -n prod-caddy caddy-app
+  189  k delete deployments.apps -n prod-python-app python-app
+  190  k get all -n prod-caddy
+  191  k delete horizontalpodautoscalers.autoscaling -n prod-caddy caddy-hpa
+  192  k delete horizontalpodautoscalers.autoscaling -n prod-python-app python-hpa
+  193  k get all
+  194  k get all -n prod-caddy 
+  195  k delete namespaces prod-caddy
+  196  k delete namespaces prod-python-app
+  197  k get all -n prod-caddy
+  198  k get all
+  199  git init
+  200  sudo su
+  201  cd minikube/
+  202  cd dockers/
+  203  git init
+  204  docker build -t PLT/app-stripe-PLT-25-03-2026:v1 .
+  205  docker build -t plt/app-stripe-PLT-25-03-2026:v1 .
+  206  unzip django-soft-ui-dashboard-pro-v1.0.22.zip
+  207  unzip rocket-ecommerce-v1.0.7.zip
+  208  pip3 install stripe
+  209  docker build -t plt/app-django-PLT-25-03-2026:v1 priv-django-soft-ui-dashboard-pro-master/
+  210  docker build -t plt/app-django-plt-25-03-2026:v1 priv-django-soft-ui-dashboard-pro-master/
+  211  docker build -t plt/app-rocket-plt-25-03-2026:v1 priv-rocket-ecommerce-main/
+  212  k apply -f stripe/stripe-plt-25-03-2026.yaml
+  213  k create namespace dev-PLT-25-03-2026
+  214  k apply -f stripe/stripe-plt-25-03-2026.yaml
+  215  k create namespace dev-plt-25-03-2026
+  216  k apply -f stripe/stripe-plt-25-03-2026.yaml
+  217  k get pods -n dev-plt-25-03-2026
+  218  k apply -f stripe/stripe-plt-25-03-2026.yaml
+  219  k get pods --all-namespaces
+  220  k apply -f stripe/stripe-plt-25-03-2026.yaml
+  221  k get pods --all-namespaces
+  222  docker push plt/app-rocket-plt-25-03-2026:v1
+  223  docker push plt/app-django-plt-25-03-2026:v1
+  224  docker login
+  225  docker push plt/app-django-plt-25-03-2026:v1
+  226  git init
+  227  docker push plt/app-django-plt-25-03-2026:v1
+  228  git remote add origin https://github.com/Lythyyy/plt.git
+  229  git branch -M main
+  230* 
+  231  docker push plt/app-django-plt-25-03-2026:v1
+  232  docker tag django-soft-ui-dashboard-pro-master Lythyyy/django-dashboard-plt-25-03-2026:v1
+  233  docker images
+  234* doc
+  235  docker push plt/app-django-plt-25-03-2026:v1
+  236  docker push Lythyyy/app-django-plt-25-03-2026:v1
+  237  ping 8.8.8.8
+  238  unzip stripe-sample-code\ \(1\).zip
+  239  git add .
+  240  git commit -m "Initial commit"
+  241  git config --global user.email "petitotolivier@gmail.com"
+  242  git config --global user.name "Olivier Petitot"
+  243  git commit -m "Initial commit"
+  244  git branch -M main
+  245  git remote add origin https://github.com/Lythyyy/plt.git
+  246  git push -u origin main
+  247  git rm --cached priv-rocket-ecommerce-main/.env
+  248  git add .
+  249  git commit --amend -m "Initial commit"
+  250  git push -u origin main
+  251  git rm --cached priv-rocket-ecommerce-main/.env
+  252  git add .
+  253  git commit -m "Initial commit"
+  254  git push -u origin main
+  255  rm -rf .git
+  256  git init
+  257  git add .
+  258  git commit -m "Initial commit"
+  259  git branch -M main
+  260  git remote add origin https://github.com/Lythyyy/plt.git
+  261  git push -u origin main
+  262  cd stripe
+  263  docker build -t stripe-app-plt-25-03-2026:v1 .
+  264  docker images
+  265  docker build -t plt/stripe-app-plt-25-03-2026:v1 .
+  266  docker images
+  267  docker rmi stripe-app-plt-25-03-2026:v1
+  268  docker images
+  269  docker rmi Lythyyy/app-django-plt-25-03-2026:v1
+  270  docker images
+  271  git commit -m "Agencement correct"
+  272  sudo apt update
+  273  docker images
+  274  k get pod
+  275  k get pod -n dev-plt-25-03-2026
+  276* 
+  277  k get svc
+  278  k get svc -n dev-plt-25-03-2026 
+  279  k logs
+  280  k get logs
+  281* 
+  282  docker images
+  283  k get all
+  284  k get logs
+  285  git commit -m "Stripe app functional"
+  286  cd .
+  287  cd ..
+  288  git add .
+  289  git commit -m "Stripe app functional"
+  290  git commit -m "Stripe app functional - Edited checkout"
+  291  git add .
+  292  git commit -m "Stripe app functional - Edited checkout"
+  293  git commit -m "3 apps are up"
+  294  git add .
+  295  git commit -m "3 apps are up"
+  296  git push
+  297  git commit -m "Secret update"
+  298  git push
+  299  docker images
+  300  git commit -m "Secret update"
+  301  git add .
+  302  git commit -m "Secret update"
+  303  git push
+  304  git commit -m "Secret update"
+  305  git add .
+  306  git commit -m "Updated replicas"
+  307  git push
+  308  cd ..
+  309  mkdir -p k8s/{base,dev,preprod,prod,secrets}
+  310  mv stripe/django-dashboard-plt-25-03-2026.yaml k8s/base/
+  311  cd dockers
+  312  mkdir -p k8s/{base,dev,preprod,prod,secrets}
+  313  mv stripe/django-dashboard-plt-25-03-2026.yaml k8s/base/
+  314  mv stripe/django-plt-25-03-2026.yaml k8s/base/
+  315  mv stripe/stripe-plt-25-03-2026.yaml k8s/base/
+  316  k get svc -n dev-plt-25-03-2026
+  317  k get svc -all
+  318  k get svc all
+  319  k get svc --all-namespaces
+  320  k get --all-namespaces
+  321  k get all --all-namespaces
+  322  k delete statefulsets.apps -n monitoring alertmanager-monitoring-kube-prometheus-alertmanager
+  323  k delete statefulsets.apps -n monitoring prometheus-monitoring-kube-prometheus-prometheus
+  324  k get all --all-namespaces
+  325  k delete rs $(kubectl get rs -n dev-plt-25-03-2026 --field-selector=status.replicas=0 -o name) -n dev-plt-25-03-2026
+  326  k get all --all-namespaces
+  327  kubectl delete rs $(kubectl get rs -n dev-plt-25-03-2026 --field-selector=status.replicas=0 -o name) -n dev-plt-25-03-2026
+  328  k create namespace preprod-plt-25-03-2026
+  329  k create namespace prod-plt-25-03-2026
+  330  k create secret generic secret-django-plt-25-03-2026   --from-env-file=dockers/priv-rocket-ecommerce-main/.env   --dry-run=client -o yaml > k8s/secrets/secret-django-plt-25-03-2026.yaml
+  331  k create secret generic secret-django-plt-25-03-2026   --from-env-file=priv-rocket-ecommerce-main/.env   --dry-run=client -o yaml > k8s/secrets/secret-django-plt-25-03-2026.yaml
+  332  k create secret generic secret-dashboard-plt-25-03-2026   --from-env-file=priv-django-soft-ui-dashboard-pro-master/.env   --dry-run=client -o yaml > k8s/secrets/secret-dashboard-plt-25-03-2026.yaml
+  333  k create secret generic secret-stripe-plt-25-03-2026   --from-literal=STRIPE_SECRET_KEY=sk_test_51T9O1K5wgVagseSWYmkdbIuZ7kQnaQsi3vLR7Rr66stVbZLY8AjQkhtb5uj6LxSoQuYyBkSnojFMunthmkpDE5wE00UTYd3eCT   --from-literal=STRIPE_PUBLISHABLE_KEY=pk_test_51T9O1K5wgVagseSW8nTh9DWSlXs5WUghdAhEbipOJeHabowcGpv2l4KCGeZmHvE42eSRJGw30a2kKm61o79xK5iY00Ish9nTgc   --dry-run=client -o yaml > k8s/secrets/secret-stripe-plt-25-03-2026.yaml
+  334  k get deployments.apps -n django-dashboard-plt-25-03-2026
+  335  minikube addons enable metrics-server
+  336  minikube addons enable ingress
+  337  kubectl apply -k k8s/dev/
+  338  ls -la
+  339  ls -la ~/dockers/k8s/base/
+  340  kubect apply -k k8s/dev/
+  341  k apply -k k8s/dev/
+  342  cp k8s/secrets/*.yaml k8s/dev/
+  343  k apply -k k8s/dev/
+  344  cat k8s/base/kustomization.yaml
+  345  k apply -k k8s/dev/
+  346  cp k8s/secrets/secret-*.yaml k8s/dev/
+  347  k apply -k k8s/dev/
+  348  k get pods -n dev-plt-25-03-2026
+  349  docker images
+  350  k get pods -n dev-plt-25-03-2026
+  351  k describe pod
+  352  k describe pod -n dev-plt-25-03-2026 django-deployment-575d9bdf9c-55zcb
+  353  minikube image load plt/app-rocket-plt-25-03-2026:v1
+  354  docker build -t plt/app-rocket-plt-25-03-2026:v1 ./priv-rocket-ecommerce-main/
+  355  k get pods -n dev-plt-25-03-2026
+  356  k get all --all-namespaces
+  357  minikube service list -n dev-plt-25-03-2026
+  358  curl http://192.168.49.2:30102
+  359  curl http://192.168.49.2:30464
+  360  minikube service list -n dev-plt-25-03-2026
+  361  k get all --all-namespaces
+  362  git commit -m "Environment variables & secrets"
+  363  git add .
+  364  git commit -m "Environment variables & secrets"
+  365  k get deployments.apps -n dev-plt-25-03-2026
+  366  k get namespaces
+  367  k autoscale deployment -n preprod-plt-25-03-2026 --min=3 --max=10 --cpu-percent=70
+  368  k autoscale deployment preprod-scaling -n preprod-plt-25-03-2026 --min=3 --max=10 --cpu-percent=70
+  369  k autoscale deployment django-dashboard-plt-25-03-2026 -n preprod-plt-25-03-2026 --min=3 --max=10 --cpu-percent=70
+  370  k get deployment django-dashboard-plt-25-03-2026 -n dev-plt-25-03-2026 -o yaml |   sed 's/namespace: dev-plt-25-03-2026/namespace: preprod-plt-25-03-2026/' |   kubectl apply -f -
+  371  k get deployments --all-namespaces
+  372  k get deployment django-dashboard-deployment-plt-25-03-2026 -n dev-plt-25-03-2026 -o yaml |   sed 's/namespace: dev-plt-25-03-2026/namespace: preprod-plt-25-03-2026/' |   kubectl apply -f -
+  373  k get deployment django-deployment -n dev-plt-25-03-2026 -o yaml |   sed 's/namespace: dev-plt-25-03-2026/namespace: preprod-plt-25-03-2026/' |   kubectl apply 
+  374  k get deployment django-deployment -n dev-plt-25-03-2026 -o yaml |   sed 's/namespace: dev-plt-25-03-2026/namespace: preprod-plt-25-03-2026/' |   kubectl apply -f -
+  375  k get deployment stripe-deployment-plt-25-03-2026 -n dev-plt-25-03-2026 -o yaml |   sed 's/namespace: dev-plt-25-03-2026/namespace: preprod-plt-25-03-2026/' |   kubectl apply -f -
+  376  k autoscale deployment django-dashboard-plt-25-03-2026 -n preprod-plt-25-03-2026 --min=3 --max=10 --cpu-percent=70
+  377  k autoscale deployment django-dashboard-deployment-plt-25-03-2026 -n preprod-plt-25-03-2026 --min=3 --max=10 --cpu-percent=70
+  378  k autoscale deployment django-deployment -n preprod-plt-25-03-2026 --min=3 --max=10 --cpu=70%
+  379  k  autoscale deployment stripe-deployment-plt-25-03-2026 -n preprod-plt-25-03-2026 --min=3 --max=10 --cpu=70%
+  380  k get deployments.apps -n preprod-plt-25-03-2026
+  381  k get hpa -n preprod-plt-25-03-2026
+  382  k apply -f k8s/preprod/hpa-preprod-plt-25-03-2026.yaml
+  383  k get hpa -n preprod-plt-25-03-2026
+  384  k delete hpa --all -n preprod-plt-25-03-2026
+  385  k apply -f k8s/preprod/hpa-preprod-plt-25-03-2026.yaml
+  386  k get hpa -n preprod-plt-25-03-2026
+  387  k delete hpa --all -n preprod-plt-25-03-2026
+  388  k describe deployment django-deployment -n preprod-plt-25-03-2026
+  389  k top pods -n preprod-plt-25-03-2026
+  390  minikube addons enable metrics-server
+  391  k top pods -n preprod-plt-25-03-2026
+  392  k apply -f k8s/preprod/hpa-preprod-plt-25-03-2026.yaml
+  393  k top pods -n preprod-plt-25-03-2026
+  394  k get pods -n kube-system | grep metrics
+  395  k logs -n kube-system -l k8s-app=metrics-server --tail=20
+  396  k top pods -n preprod-plt-25-03-2026
+  397  k delete pod -n kube-system -l k8s-app=metrics-server
+  398  k top nodes
+  399  minikube addons list
+  400  k top nodes
+  401  minikube addons disable metrics-server
+  402  minikube addons enable metrics-server
+  403  k top nodes
+  404  k top pods -n preprod-plt-25-03-2026
+  405  k describe deployment django-dashboard-deployment-plt-25-03-2026 -n preprod-plt-25-03-2026
+  406  k apply -f django-dashboard-deployment-plt-25-03-2026.yaml
+  407  k apply -f k8s/base/django-dashboard-deployment-plt-25-03-2026.yaml
+  408  k top pods -n preprod-plt-25-03-2026
+  409  k apply -f k8s/preprod/hpa-preprod-plt-25-03-2026.yaml
+  410  k top pods -n preprod-plt-25-03-2026
+  411  k get pods -n dev-plt-25-03-2026
+  412  k get deployment -n preprod-plt-25-03-2026
+  413  k get pods -n preprod-plt-25-03-2026
+  414  k describe pod -n preprod-plt-25-03-2026 -l app=django-dashboard
+  415  k get configmap -n preprod-plt-25-03-2026
+  416  k create configmap django-dashboard-configmap-plt-25-03-2026   --from-env-file=.env   -n preprod-plt-25-03-2026
+  417  k create configmap django-dashboard-configmap-plt-25-03-2026   --from-env-file=priv-django-soft-ui-dashboard-pro-master/.env   -n preprod-plt-25-03-2026
+  418  k get configmap -n preprod-plt-25-03-2026
+  419  k describe pod -n preprod-plt-25-03-2026 -l app=django-dashboard
+  420  k apply -f k8s/preprod/hpa-preprod-plt-25-03-2026.yaml
+  421  k apply -f django-dashboard-deployment-plt-25-03-2026.yaml
+  422  k get pods -n preprod-plt-25-03-2026
+  423  k rollout restart deployment django-dashboard-deployment-plt-25-03-2026 -n preprod-plt-25-03-2026
+  424  k get pods -n preprod-plt-25-03-2026
+  425  k describe pod django-dashboard-deployment-plt-25-03-2026-6dcc4d79f9-nrvfd -n preprod-plt-25-03-2026
+  426  k get secrets -n preprod-plt-25-03-2026
+  427  k create secret generic stripe-secret-plt-25-03-2026   --from-literal=STRIPE_SECRET_KEY=sk_test_51T9O1K5wgVagseSWYmkdbIuZ7kQnaQsi3vLR7Rr66stVbZLY8AjQkhtb5uj6LxSoQuYyBkSnojFMunthmkpDE5wE00UTYd3eCT
+  428  k get secrets -n preprod-plt-25-03-2026
+  429  k delete secrets -n preprod-plt-25-03-2026 stripe-secret-plt-25-03-2026
+  430  k create secret generic stripe-secret-plt-25-03-2026   --from-literal=STRIPE_SECRET_KEY=sk_test_51T9O1K5wgVagseSWYmkdbIuZ7kQnaQsi3vLR7Rr66stVbZLY8AjQkhtb5uj6LxSoQuYyBkSnojFMunthmkpDE5wE00UTYd3eCT   -n preprod-plt-25-03-2026
+  431  k rollout restart deployment django-dashboard-deployment-plt-25-03-2026 -n preprod-plt-25-03-2026
+  432  k get pods -n preprod-plt-25-03-2026
+  433  k rollout restart deployment django-deployment-575d9bdf9c -n preprod-plt-25-03-2026
+  434  k rollout restart deployment -n preprod-plt-25-03-2026 django-deployment
+  435  k rollout restart deployment -n preprod-plt-25-03-2026 stripe-deployment-plt-25-03-2026
+  436  k get pods -n preprod-plt-25-03-2026
+  437  k get deployments -n preprod-plt-25-03-2026
+  438  k describe pod -n preprod-plt-25-03-2026 stripe-deployment-plt-25-03-2026-6ccc74b4c-zhcbz
+  439  k create configmap stripe-configmap-plt-25-03-2026 --from-env-file=priv-rocket-ecommerce-main/.env -n preprod-plt-25-03-2026
+  440  k rollout restart deployment -n preprod-plt-25-03-2026 stripe-deployment-plt-25-03-2026
+  441  k describe pod -n preprod-plt-25-03-2026 stripe-deployment-plt-25-03-2026-6ccc74b4c-zhcbz
+  442  k describe pod -n preprod-plt-25-03-2026 django-deployment-7d54f6d9fb-vj6xk
+  443  k create configmap django-app-configmap --from-env-file=priv-rocket-ecommerce-main/.env -n preprod-plt-25-03-2026
+  444  k describe pod -n preprod-plt-25-03-2026 django-deployment-7d54f6d9fb-vj6xk
+  445  k rollout restart deployment -n preprod-plt-25-03-2026 django-deployment
+  446  k get pods -n preprod-plt-25-03-2026
+  447  k get hpa -n preprod-plt-25-03-2026
+  448  k get deployment django-dashboard-deployment-plt-25-03-2026 -n preprod-plt-25-03-2026
+  449  k get deployment django-dashboard-deployment-plt-25-03-2026 -n preprod-plt-25-03-2026 -o jsonpath='{.spec.template.spec.containers[0].resources}'
+  450  k apply -k k8s/preprod
+  451  k apply -f k8s/base/django-dashboard-deployment-plt-25-03-2026.yaml -n preprod-plt-25-03-2026
+  452  k apply -f k8s/base/django-dashboard-deployment-plt-25-03-2026.yaml -n preprod-plt-25-03-2026 --namespace=dev-plt-25-03-2026
+  453  k get deployment django-dashboard-deployment-plt-25-03-2026 -n preprod-plt-25-03-2026 -o jsonpath='{.spec.template.spec.containers[0].resources}'
+  454  k get hpa -n preprod-plt-25-03-2026
+  455  k apply -k k8s/preprod
+  456  cd k8s/
+  457  cd preprod/
+  458  k apply -k k8s/preprod
+  459  k apply -k .
+  460  k get hpa -n preprod-plt-25-03-2026
+  461  minikube addons list
+  462  k get --raw "/apis/metrics.k8s.io/v1beta1/nodes"
+  463  k get deployments -n preprod-plt-25-03-2026
+  464  k logs -n kube-system deployment/metrics-server
+  465  k get hpa -n preprod-plt-25-03-2026
+  466  git commit -m "HPA deployed"
+  467  git add .
+  468  git commit -m "HPA deployed"
+  469  k krew install stress
+  470  k get pods --all-namespaces
+  471  k get hpa -n preprod-plt-25-03-2026
+  472  sudo apt update && sudo apt install apache2-utils
+  473  minikube ip
+  474  k get services --all-namespaces
+  475  ab -n 10000 -c 10000 http://192.168.49.2:32408/checkout.html
+  476  ab -n 10000 -c 10000 http://192.168.49.2:30102/
+  477  ab -n 10000 -c 10000 http://192.168.49.2:4242/checkout.html
+  478  k get services --all-namespaces
+  479  ab -n 10000 -c 10000 http://192.168.49.2:30346/checkout.html
+  480  ab -n 1000000 -c 1000000 http://192.168.49.2:30346/checkout.html
+  481  ab -n 100000 -c 100000 http://192.168.49.2:30346/checkout.html
+  482  ab -n 100000 -c 10000 http://192.168.49.2:30346/checkout.html
+  483  k get services --all-namespaces
+  484  k events hpa
+  485  k events hpa -n preprod-plt-25-03-2026
+  486  git push origin main
+  487  history > history-projet-PETITOT-OLIVIER.log
+  488  docker logs minikube > history-projet-PETITOT-OLIVIER-docker-conteneur.log
+  489  docker logs minikube 
+  490  k get pods
+  491  k get pods --all-namespaces
+  492  k logs -n preprod-plt-25-03-2026 stripe-deployment-plt-25-03-2026-6f7c6b474f-prdf7  > history-projet-PETITOT-OLIVIER-docker-conteneur-stripe.log
+  493  k logs -n preprod-plt-25-03-2026 stripe-deployment-plt-25-03-2026-6f7c6b474f-prdf7
+  494  history -a
+  495  history > history-projet-PETITOT-OLIVIER.log

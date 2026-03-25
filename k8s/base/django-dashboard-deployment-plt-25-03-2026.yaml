@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: django-dashboard-configmap-plt-25-03-2026
-  namespace: django-dashboard-plt-25-03-2026
+  namespace: dev-plt-25-03-2026
 data:
   DEMO_MODE: "True"
   DEBUG: "True"
@@ -13,7 +13,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: django-dashboard-deployment-plt-25-03-2026
-  namespace: django-dashboard-plt-25-03-2026
+  namespace: dev-plt-25-03-2026
   labels:
     app: django-dashboard
     env: dev
@@ -41,12 +41,19 @@ spec:
                 name: django-dashboard-configmap-plt-25-03-2026
             - secretRef:
                 name: stripe-secret-plt-25-03-2026
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: django-dashboard-service-plt-25-03-2026
-  namespace: django-dashboard-plt-25-03-2026
+  namespace: dev-plt-25-03-2026
 spec:
   type: LoadBalancer
   selector:
